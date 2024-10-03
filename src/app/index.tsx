@@ -6,6 +6,7 @@ import bg from '@/assets/auth/welcome-background.png';
 import fb from '@/assets/auth/facebook.png';
 import gg from '@/assets/auth/google.png';
 import { LinearGradient } from "expo-linear-gradient";
+import { Link, Redirect } from "expo-router";
 const styles = StyleSheet.create({
     //style of above screen
     container: {
@@ -45,6 +46,11 @@ const styles = StyleSheet.create({
 })
 
 const WelcomePage = () => {
+    if (true) {
+        return (
+            <Redirect href={'/(auth)/signup'} />
+        )
+    }
     return (
         <ImageBackground
             style={{
@@ -186,7 +192,11 @@ const WelcomePage = () => {
                         <View>
                             <Text style={{
                                 color: 'white'
-                            }}>Aready have an account? Sign in </Text>
+                            }}>Aready have an account? {' '}
+                                <Link style={{
+                                    textDecorationLine: 'underline'
+                                }} href={'/(auth)/signup'}>Sign in</Link>
+                            </Text>
                         </View>
                     </View>
                 </View>
