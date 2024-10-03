@@ -27,12 +27,14 @@ const styles = StyleSheet.create({
 interface IProps {
     title?: string;
     keyboardType?: KeyboardTypeOptions,
-    secureTextEntry?: boolean
+    secureTextEntry?: boolean,
+    value: any,
+    setValue: (v: any) => void
 }
 const ShareInput = (props: IProps) => {
     const [isFocus, setIsFocus] = useState<boolean>(false);
 
-    const { title, keyboardType, secureTextEntry = false } = props;
+    const { title, keyboardType, secureTextEntry = false, value, setValue } = props;
     const [showEye, setShowEye] = useState<boolean>(secureTextEntry)
 
     return (
@@ -49,6 +51,8 @@ const ShareInput = (props: IProps) => {
                     { borderColor: isFocus ? APP_COLOR.ORANGE : APP_COLOR.GREY }
                     ]}
                     secureTextEntry={showEye}
+                    value={value}
+                    onChangeText={newText => setValue(newText)}
                 />
                 {
                     secureTextEntry ?

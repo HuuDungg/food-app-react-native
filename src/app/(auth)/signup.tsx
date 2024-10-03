@@ -5,6 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context"
 import fb from '@/assets/auth/facebook.png';
 import gg from '@/assets/auth/google.png';
 import { Link } from "expo-router";
+import { useState } from "react";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -38,6 +39,16 @@ const styles = StyleSheet.create({
     }
 })
 const SignupPage = () => {
+    const [userName, setUsername] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+
+    const handleSignUp = () => {
+        setEmail('');
+        setUsername('');
+        setPassword("");
+        alert("check data")
+    }
     return (
         <SafeAreaView style={
             {
@@ -58,13 +69,27 @@ const SignupPage = () => {
                     >Sign Up</Text>
                 </View>
                 <View style={styles.inputGroup}>
-                    <ShareInput title="User name" />
+                    <ShareInput
+                        title="User name"
+                        value={userName}
+                        setValue={setUsername}
+                    />
                 </View>
                 <View style={styles.inputGroup}>
-                    <ShareInput title="Email" keyboardType="email-address" />
+                    <ShareInput
+                        title="Email"
+                        keyboardType="email-address"
+                        value={email}
+                        setValue={setEmail}
+                    />
                 </View>
                 <View style={styles.inputGroup}>
-                    <ShareInput secureTextEntry={true} title="Password" />
+                    <ShareInput
+                        secureTextEntry={true}
+                        title="Password"
+                        value={password}
+                        setValue={setPassword}
+                    />
                 </View>
                 <View style={{
                     flexDirection: 'row',
@@ -73,7 +98,7 @@ const SignupPage = () => {
                     <ShareButton
                         title="Sign Up"
                         onPress={() => {
-                            alert("clecked")
+                            handleSignUp()
                         }}
                         btnStyle={{
                             borderWidth: 0,
