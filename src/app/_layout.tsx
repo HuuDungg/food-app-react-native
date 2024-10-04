@@ -15,6 +15,9 @@ const RootLayout = () => {
             <Stack.Screen name="(tab)" options={{
                 headerTitle: "HuuDung"
             }} />
+            <Stack.Screen name="(auth)/verify" options={{
+                headerTitle: "HuuDung11"
+            }} />
         </Stack>
     )
 }

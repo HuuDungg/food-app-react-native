@@ -4,8 +4,9 @@ import { Image, StyleSheet, Text, TextInput, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import fb from '@/assets/auth/facebook.png';
 import gg from '@/assets/auth/google.png';
-import { Link } from "expo-router";
-import { useState } from "react";
+import { Link, router } from "expo-router";
+import { useEffect, useState } from "react";
+import axios from "axios";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -39,15 +40,31 @@ const styles = StyleSheet.create({
     }
 })
 const SignupPage = () => {
-    const [userName, setUsername] = useState<string>('');
+    const URL_BACKEND = process.env.EXPO_PUBLIC_API_URL!;
+
+    const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const url = `${URL_BACKEND}/api/v1/auth/register`;
 
-    const handleSignUp = () => {
+    useEffect(() => {
+    }, [])
+    const clearData = () => {
         setEmail('');
-        setUsername('');
+        setName('');
         setPassword("");
-        alert("check data")
+    }
+    const handleSignUp = async () => {
+        try {
+            console.log("check url backned: ", url)
+            const res = await axios.post(url, { email, password, name });
+            console.log(res.data);
+            clearData();
+            router.navigate('/(auth)/verify');
+        } catch (erorr) {
+            console.log(erorr)
+        }
+
     }
     return (
         <SafeAreaView style={
@@ -71,8 +88,8 @@ const SignupPage = () => {
                 <View style={styles.inputGroup}>
                     <ShareInput
                         title="User name"
-                        value={userName}
-                        setValue={setUsername}
+                        value={name}
+                        setValue={setName}
                     />
                 </View>
                 <View style={styles.inputGroup}>
