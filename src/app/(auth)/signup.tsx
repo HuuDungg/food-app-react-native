@@ -7,6 +7,7 @@ import gg from '@/assets/auth/google.png';
 import { Link, router } from "expo-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { registerApi } from "@/utils/api";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -40,12 +41,10 @@ const styles = StyleSheet.create({
     }
 })
 const SignupPage = () => {
-    const URL_BACKEND = process.env.EXPO_PUBLIC_API_URL!;
-
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const url = `${URL_BACKEND}/api/v1/auth/register`;
+
 
     useEffect(() => {
     }, [])
@@ -54,13 +53,14 @@ const SignupPage = () => {
         setName('');
         setPassword("");
     }
-    const handleSignUp = async () => {
+    const handleSignUp = () => {
         try {
-            console.log("check url backned: ", url)
-            const res = await axios.post(url, { email, password, name });
-            console.log(res.data);
-            clearData();
+            const res = registerApi(email, password, name);
+            // if (res.data) {
+            // console.log(res.data);
+            // clearData();
             router.navigate('/(auth)/verify');
+            // }
         } catch (erorr) {
             console.log(erorr)
         }
