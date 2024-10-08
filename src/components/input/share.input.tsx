@@ -59,7 +59,8 @@ const ShareInput = (props: IProps) => {
                         showEye ?
                             <FontAwesome5
                                 style={styles.eye}
-                                name="eye"
+
+                                name="eye-slash"
                                 size={20}
                                 color="black"
                                 onPress={() => {
@@ -69,7 +70,7 @@ const ShareInput = (props: IProps) => {
                             :
                             <FontAwesome5
                                 style={styles.eye}
-                                name="eye-slash"
+                                name="eye"
                                 size={20}
                                 color="black"
                                 onPress={() => {

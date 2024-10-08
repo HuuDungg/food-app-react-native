@@ -6,7 +6,7 @@ import bg from '@/assets/auth/welcome-background.png';
 import fb from '@/assets/auth/facebook.png';
 import gg from '@/assets/auth/google.png';
 import { LinearGradient } from "expo-linear-gradient";
-import { Link, Redirect } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 const styles = StyleSheet.create({
     //style of above screen
     container: {
@@ -46,11 +46,11 @@ const styles = StyleSheet.create({
 })
 
 const WelcomePage = () => {
-    if (true) {
-        return (
-            <Redirect href={'/(auth)/signup'} />
-        )
-    }
+    // if (true) {
+    //     return (
+    //         <Redirect href={'/(auth)/login'} />
+    //     )
+    // }
     return (
         <ImageBackground
             style={{
@@ -165,7 +165,7 @@ const WelcomePage = () => {
                             <ShareButton
                                 title="Start with your email"
                                 onPress={() => {
-                                    alert("hihi")
+                                    router.navigate('/(auth)/login');
                                 }}
                                 textStyle={{
                                     textTransform: 'uppercase',
@@ -192,10 +192,10 @@ const WelcomePage = () => {
                         <View>
                             <Text style={{
                                 color: 'white'
-                            }}>Aready have an account? {' '}
+                            }}>Don't have an account? {' '}
                                 <Link style={{
                                     textDecorationLine: 'underline'
-                                }} href={'/(auth)/signup'}>Sign in</Link>
+                                }} href={'/(auth)/signup'}>Sign up</Link>
                             </Text>
                         </View>
                     </View>

@@ -1,4 +1,4 @@
-import { Pressable, StyleProp, StyleSheet, Text, TextStyle, View } from "react-native";
+import { ActivityIndicator, Pressable, StyleProp, StyleSheet, Text, TextStyle, View } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { ReactNode } from "react";
 import { APP_COLOR } from "@/utils/constant";
@@ -27,9 +27,10 @@ interface IProps {
     pressStyle?: StyleProp<TextStyle>;
     btnStyle?: StyleProp<TextStyle>;
     icons?: ReactNode;
+    loading?: boolean
 }
 const ShareButton = (props: IProps) => {
-    const { title, onPress, pressStyle, textStyle, btnStyle, icons } = props;
+    const { title, onPress, pressStyle, textStyle, btnStyle, icons, loading = false } = props;
     return (
         <Pressable
             style={({ pressed }) => ([
@@ -40,12 +41,17 @@ const ShareButton = (props: IProps) => {
                 pressStyle
             ])}
             onPress={onPress}
+            disabled={loading}
         >
             <View style={[styles.btnContainer, btnStyle]}>
-
                 {icons}
                 <Text style={textStyle}>{title}</Text>
+                {loading &&
+                    <ActivityIndicator size="small" color="#0000ff" />
+                }
+
             </View>
+
         </Pressable>
     )
 }
