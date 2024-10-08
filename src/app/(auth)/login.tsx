@@ -1,14 +1,17 @@
 import ShareButton from "@/components/button/share.button"
-import { Image, StyleSheet, Text, View } from "react-native"
+import { Button, Image, StyleSheet, Text, TextInput, View } from "react-native"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ShareInput from "@/components/input/share.input";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Link, router } from "expo-router";
 import { APP_COLOR } from "@/utils/constant";
 import fb from '@/assets/auth/facebook.png';
 import gg from '@/assets/auth/google.png';
 import { loginApi } from "@/utils/api";
 import Toast from "react-native-root-toast";
+import { ErrorMessage, Formik } from "formik";
+import { LoginSchema } from "@/utils/validate.schema";
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -39,6 +42,7 @@ const LoginPage = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const handleLogin = async () => {
         try {
             setIsLoading(true);
@@ -87,8 +91,8 @@ const LoginPage = () => {
     }
     return (
         <>
-            <View style={styles.container}>
-                <View style={styles.inputContainer}>
+            {/*<View style={styles.container}>
+                 <View style={styles.inputContainer}>
                     <Ionicons
                         name="chevron-back"
                         size={24}
@@ -247,7 +251,42 @@ const LoginPage = () => {
                             />
                         </View>
                     </View>
-                </View>
+                </View> 
+            </View>*/}
+
+            <View>
+                <Text>This is login view</Text>
+                <Formik
+                    initialValues={{ email: '', password: '' }}
+                    onSubmit={values => console.log("check values = ", values)}
+                    validationSchema={LoginSchema}
+                >
+                    {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
+                        <View style={{ margin: 10 }}>
+                            <Text>Email</Text>
+                            {errors.email && <Text style={{ color: 'red' }} >{JSON.stringify(errors.email)}</Text>}
+                            <TextInput
+                                style={{ borderWidth: 1, borderColor: "#ccc" }}
+                                onChangeText={handleChange('email')}
+                                onBlur={handleBlur('email')}
+                                value={values.email}
+                            />
+                            <View style={{ marginVertical: 10 }}></View>
+                            <Text>Password</Text>
+                            {errors.password && <Text style={{ color: 'red' }} >{JSON.stringify(errors.password)}</Text>}
+                            <TextInput
+                                style={{ borderWidth: 1, borderColor: "#ccc" }}
+                                onChangeText={handleChange('password')}
+                                onBlur={handleBlur('password')}
+                                value={values.password}
+                            />
+                            <View style={{ marginVertical: 10 }}></View>
+
+                            <Button onPress={handleSubmit as any} title="Submit" />
+                        </View>
+                    )}
+                </Formik>
+
             </View>
         </>
     )
